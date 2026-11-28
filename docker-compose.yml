@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  temp-email-server:
+    build: .
+    container_name: temp-email-server
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DOMAIN: tempmail.local
+      NODE_ENV: production
+      DATABASE_PATH: /data/emails.db
+      DEFAULT_MAILBOX_EXPIRES_IN: 3600
+      MAX_MAILBOX_EXPIRES_IN: 86400
+    volumes:
+      - temp-email-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  temp-email-data:
+    driver: local

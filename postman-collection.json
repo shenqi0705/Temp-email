@@ -1,0 +1,171 @@
+{
+  "info": {
+    "_postman_id": "temp-email-server-collection",
+    "name": "Temp Email Server API",
+    "description": "临时邮箱服务器 API 集合",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "mailboxId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "emailId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Mailbox Operations",
+      "item": [
+        {
+          "name": "Create Mailbox (Auto Prefix)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expiresIn\": 3600\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/mailboxes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mailboxes"]
+            }
+          }
+        },
+        {
+          "name": "Create Mailbox (Custom Prefix)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prefix\": \"john.doe\",\n  \"expiresIn\": 7200\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/mailboxes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mailboxes"]
+            }
+          }
+        },
+        {
+          "name": "Get Mailbox Info",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/mailboxes/{{mailboxId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mailboxes", "{{mailboxId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Mailbox",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/mailboxes/{{mailboxId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mailboxes", "{{mailboxId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Email Operations",
+      "item": [
+        {
+          "name": "Get Emails List",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/mailboxes/{{mailboxId}}/emails",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mailboxes", "{{mailboxId}}", "emails"]
+            }
+          }
+        },
+        {
+          "name": "Get Email Detail",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/emails/{{emailId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "emails", "{{emailId}}"]
+            }
+          }
+        },
+        {
+          "name": "Send Mock Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mailboxId\": \"{{mailboxId}}\",\n  \"sender\": \"noreply@example.com\",\n  \"subject\": \"Test Email\",\n  \"content\": \"This is a test email\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/emails/mock",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "emails", "mock"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Server Info",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "API Info",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/info",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "info"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

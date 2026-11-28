@@ -1,0 +1,35 @@
+{
+  "name": "temp-email-server",
+  "version": "1.0.0",
+  "description": "一个轻量级的临时邮箱服务器，支持随机生成邮箱前缀、自定义域名、邮件接收和管理",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "temp-email",
+    "temporary-email",
+    "disposable-email",
+    "api",
+    "express",
+    "sqlite"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/temp-email-server"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.0",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
